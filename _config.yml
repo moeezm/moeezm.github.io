@@ -1,5 +1,6 @@
 lsi: false
 safe: true
+markdown: kramdown
 source: /
 incremental: false
 highlighter: rouge
