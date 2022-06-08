@@ -3,5 +3,6 @@
 ## Test
 
 We have an inline equation: \\(f(x) = x^2\\)
-and a display equation: $$f(x) = x^3$$
+and a display equation: \$\$f(x) = x^3\$\$
+display: $$$f(x) = x$$$
 and another display equation: \\[f(x) = x^4\\]
