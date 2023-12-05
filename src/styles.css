@@ -1,6 +1,9 @@
-.horiz-list {
+.no-bullet {
 	list-style-type: none;
 	padding: 0;
+}
+
+.horiz-list { 
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
