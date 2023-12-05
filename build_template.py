@@ -12,6 +12,6 @@ for html_filename in parentdir.rglob('*.html'):
     with open(html_filename, 'r') as html_file:
         s = html_file.read()
         for k, v in templates.items():
-            s.replace(TEMPLATE_PREFIX + k, v)
+            s = s.replace(TEMPLATE_PREFIX + k, v)
     with open(html_filename, 'w') as html_file:
         html_file.write(s)
