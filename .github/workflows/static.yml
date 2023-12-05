@@ -29,6 +29,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - run: "ls"
+        working-directory: ${{ github.workspace }}
+      - run: "pwd"
+        working-directory: ${{ github.workspace }}
       - name: Build
         run: "make"
         working-directory: ${{ github.workspace }}
