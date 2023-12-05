@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test
-        run: ls
+        run: ls && pwd
       - name: Build
         run: make
       - name: Checkout
