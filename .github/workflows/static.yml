@@ -29,10 +29,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        run: ls && pwd
       - name: Build
-        run: make
+        run: "make"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
