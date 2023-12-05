@@ -29,15 +29,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - run: "ls"
-        working-directory: ${{ github.workspace }}
-      - run: "pwd"
-        working-directory: ${{ github.workspace }}
-      - name: Build
-        run: "make"
-        working-directory: ${{ github.workspace }}
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build
+        run: make
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
