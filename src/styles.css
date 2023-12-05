@@ -4,10 +4,10 @@
 	display: flex;
 	gap: 10px;
 }
-/*test*/
+
 body {
 	margin: 30px 50% 0px 20px;
 	color: #000033;
-	font-family: "Segoe UI";
+	font-family: "Segoe UI", Helvetica, Tahoma, sans-serif;
 	background-color: #fafafa;
 }
