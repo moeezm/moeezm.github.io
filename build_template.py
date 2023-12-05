@@ -10,6 +10,9 @@ FILE_TYPES = ['*.html', '*.css', '*.js']
 parentdir = Path(__file__).resolve().parent
 templates = {}
 
+# make build directory
+(parentdir / BUILD_DIR).mkdir(parents=True, exist_ok=True)
+
 def src_to_build(filepath):
     return parentdir / BUILD_DIR / filepath.relative_to((parentdir / SRC_DIR))
 
