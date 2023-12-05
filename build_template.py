@@ -1,11 +1,13 @@
 from pathlib import Path
 from sys import exit
+import shutil
+
 BUILD_DIR = Path("build/") 
 SRC_DIR = Path("src/")
 TEMPLATE_DIR = Path("templates/")
 TEMPLATE_PREFIX = "$"
 
-FILE_TYPES = ['*.html', '*.css', '*.js']
+FILE_TYPES = ['.html']
 
 parentdir = Path(__file__).resolve().parent
 templates = {}
@@ -18,7 +20,7 @@ def src_to_build(filepath):
 
 # make a dictionary of template stuff to replace
 for filetype in FILE_TYPES:
-    for template_filename in (parentdir / TEMPLATE_DIR).glob(filetype):
+    for template_filename in (parentdir / TEMPLATE_DIR).glob('*' + filetype):
         with open(template_filename, 'r') as template_file:
             templates[template_filename.stem] = template_file.read()
 
@@ -28,11 +30,14 @@ for directory in (parentdir / SRC_DIR).rglob('*'):
         print(directory)
         src_to_build(directory).mkdir(parents=True, exist_ok=True)
 
-for filetype in FILE_TYPES:
-    for filename in (parentdir / SRC_DIR).rglob(filetype):
-        with open(filename, 'r') as web_file:
-            s = web_file.read()
-        for k, v in templates.items():
-            s = s.replace(TEMPLATE_PREFIX + k, v)
-        with open(src_to_build(filename), 'w') as web_file:
-            web_file.write(s)
+for filename in (parentdir / SRC_DIR).rglob('*'):
+    if (filename.is_file()):
+        newfilename = src_to_build(filename)
+        shutil.copy(filename, newfilename)
+        if (filename.suffix in FILE_TYPES):
+            with open(filename, 'r') as web_file:
+                s = web_file.read()
+            for k, v in templates.items():
+                s = s.replace(TEMPLATE_PREFIX + k, v)
+            with open(newfilename, 'w') as web_file:
+                web_file.write(s)
