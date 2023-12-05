@@ -16,11 +16,13 @@ templates = {}
 def src_to_build(filepath):
     return parentdir / BUILD_DIR / filepath.relative_to((parentdir / SRC_DIR))
 
+# make a dictionary of template stuff to replace
 for filetype in FILE_TYPES:
     for template_filename in (parentdir / TEMPLATE_DIR).glob(filetype):
         with open(template_filename, 'r') as template_file:
             templates[template_filename.stem] = template_file.read()
 
+# reproduce directory tree from src in build
 for directory in (parentdir / SRC_DIR).rglob('*'):
     if (directory.is_dir()):
         print(directory)
@@ -32,5 +34,5 @@ for filetype in FILE_TYPES:
             s = web_file.read()
         for k, v in templates.items():
             s = s.replace(TEMPLATE_PREFIX + k, v)
-    with open(src_to_build(filename), 'w') as web_file:
-        web_file.write(s)
+        with open(src_to_build(filename), 'w') as web_file:
+            web_file.write(s)
