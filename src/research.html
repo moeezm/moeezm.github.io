@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Research</h1>
+		</header>
+		<main>
+			This page includes some research topics that have interested me in the past, but I'm not actively working on any of them.
+			<section>
+				<h3>Bounding zeroes of polynomial systems</h3>
+				<p>My project during Summer 2023 was broadly about finding and verifying zeroes of systems of polynomial equations. However, the methods only work inside some predetermined bounded region. Thus, where I left off was trying to find an <i>a priori</i> bound for the zeroes of a polynomial system.</p>
+				<p>To this end, I read some computational algebraic geometry (both of the Cox, Little, and O'Shea books). One approach may be to use Groebner bases with some kind of interval arithmetic, although this is computationally unattractive. There is also a theorem that connects zeroes to eigenvalues of certain matrices, and those can be easily bounded with <a href="https://en.wikipedia.org/wiki/Gershgorin_circle_theorem">Gershgorin circles</a>. However, computing the matrices require Groebner bases again, but I'm hoping there's some way to bound the entries of the matrices without extensive computation.</p>
+			</section>
+			<section>
+				<h3>Double critical graph conjecture</h3>
+				<p>One open problem that has been in the back of my mind for a few years is this: call a simple, connected graph double-critical if for all pairs of adjacent vertices, removing them decreases the chromatic number by 2. The conjecture is that the complete graphs are the only double-critical graphs.</p>
+				<p>It's relatively easy to show for chromatic number less than or equal to 4, and was proved for 5</p>
+				<p>I will hopefully write a summary of the problem at some point</p>
+			</section>
+		</main>
+	</body>
+</html>
