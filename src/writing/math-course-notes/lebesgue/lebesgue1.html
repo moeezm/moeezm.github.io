@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Lecture 1: Exterior measure</h1>
+		</header>
+		<main>
+			<section>
+				<h2>Introduction</h2>
+				<p>We wish to define a "measure" for all subsets of \(\mathbb{R}^d\). What are the simplest subsets for which we already have an intuitive notion of what their measure should be? Rectangles.</p>
+				<p>Define a rectangle as follows. Take two lists of real numbers \(a_1 \dots a_d\) and \(b_1 \dots b_d\), where \(b_i \geq a_i \forall i\). The closed rectangle for those two lists is the cartesian product of all the intervals \([a_i, b_i]\). The open rectangle is similarly \((a_1, b_1) \times \dots \times (a_d, b_d)\). A rectangle in general is any set that contains an open rectangle and is contained in a closed rectangle of the same intervals.
+				(i.e., letting the brackets take on all possible combinations of open/closed).</p>
+				<p>A rectangle in one dimension is an interval, and a rectangle in two dimensions is the standard rectangle.</p>
+				<p>For a rectangle \(Q\) that is the cartesian product of intervals with endpoints \(a_i, b_i\), we define the volume, denoted \(|Q|\) in the obvious manner: \(\prod_{i=1}^d (b_i - a_i)\)</p>
+				<p>A cube is a rectangle where all the side lengths are the same, i.e., \(b_d - a_d = \dots = b_1 - a_1\)</p>
+				<p>Then, for <em>any</em> subset \(A \subseteq \mathbb{R}^d\), define its exterior measure \(m^*(A)\) as follows:
+				\[ m^*(A) = \inf\left\{\sum_{k=0}^\infty |Q_k| : A \subseteq \bigcup_{k=0}^\infty Q_k, Q_k \, \text{closed cube} \right\} \]
+				In plain English, it's the infimum of the volume of cubes over all coverings of \(A\) by a countable number of closed cubes. Based on this definition, it is worth our time to get some basic facts about rectangle coverings out of the way first.</p>
+			</section>
+			<section>
+				<h2>Coverings by Rectangles</h2>
+				<p>Some definitions: a set of rectangles are <em>almost disjoint</em> if their interiors are disjoint. That means that if you reduce each rectangle to their open version, they become disjoint. So they only "touch" at their boundaries. An <em>almost disjoint union</em> of rectangles is just a union of almost disjoint rectangles.</p>
+				<p>As soon as possible, we want to prove that the exterior measure of rectangles coincides with the volume we defined earlier. To that end, we'll prove the following lemma:<p>
+				<div class="lemma-container">
+					<span class="lemma-title">
+						Lemma 1.
+					</span>
+					<span class="lemma-statement">
+						Given a rectangle \(R\) that is the almost disjoint union of a finite set of rectangles \(R_1 \dots R_n\), then \(|R| = \sum_{i=1}^n |R_i|\).
+					</span>
+				</div>
+				<div class="proof-container">
+					<span class="proof-word">
+						Proof.
+					</span>
+					<span class="proof-text">
+						<p>First, we'll discuss subdivisions of rectangles that are just grids. If our rectangle \(R\) was the product of intervals \([a_1, b_1] \dots [a_d, b_d]\), then we can partition each interval into many subintervals. More precisely, partition \([a_i, b_i]\) into \([a_{i,1}, b_{i,1}] \dots [a_{i, i_k}, b_{i, i_k}]\).</p>
+					</span>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
