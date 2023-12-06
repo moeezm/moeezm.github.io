@@ -4,7 +4,7 @@
 	<body>
 		$NAV
 		<header>
-			<h1>Lecture 1: Exterior measure</h1>
+			<h1>Lecture 1: Exterior measure (WIP)</h1>
 		</header>
 		<main>
 			<section>
@@ -25,7 +25,7 @@
 				<p>As soon as possible, we want to prove that the exterior measure of rectangles coincides with the volume we defined earlier. To that end, we'll prove the following lemma:<p>
 				<div class="lemma-container">
 					<span class="lemma-title">
-						Lemma 1.
+						Lemma.
 					</span>
 					<span class="lemma-statement">
 						Given a rectangle \(R\) that is the almost disjoint union of a finite set of rectangles \(R_1 \dots R_n\), then \(|R| = \sum_{i=1}^n |R_i|\).
@@ -36,10 +36,72 @@
 						Proof.
 					</span>
 					<span class="proof-text">
-						<p>First, we'll discuss subdivisions of rectangles that are just grids. If our rectangle \(R\) was the product of intervals \([a_1, b_1] \dots [a_d, b_d]\), then we can partition each interval into many subintervals. More precisely, partition \([a_i, b_i]\) into \([a_{i,1}, b_{i,1}] \dots [a_{i, i_k}, b_{i, i_k}]\).</p>
+						<p>First, we'll discuss subdivisions of rectangles that are just grids. If our rectangle \(R\) was the product of intervals \([a_1, b_1] \dots [a_d, b_d]\), then we can partition each interval into many subintervals. More precisely, partition \([a_i, b_i]\) into \([a_{i,1}, b_{i,1}] \dots [a_{i, n_i}, b_{i, n_i}]\).</p>
+						<p>Then, the volume of \(R\) can be written as:
+						\[
+						\prod_{i=1}^d (b_i - a_i) = \prod_{i=1}^d \sum_{j=1}^{n_i} (b_{i, j} - a_{i, j})
+						\]
+						Which if you expand out the product becomes:
+						\[
+						\sum_{j_1, \dots, j_d} \prod_{i=1}^d (b_{i, j_i} - a_{i, j_i})
+						\]
+						where \(1 \leq j_i \leq n_i\) for all \(i\).
+						</p>
+						<p>
+						What just happened, in words? First, imagine our rectangle is in 2 dimensions. You can think of partitioning an interval as making cuts with lines at the endpoints (the lines \(x = b_{1, 1}\) or \(y = b_{2, 1}\) for example). Once all cuts are made, we've partitioned our rectangle into a grid. Each subrectangle corresponds to a choice of subintervals, one from each dimension. Then, summing over all subrectangles gives us exactly the expanded product from above. That's because when we expanded the product of sums, each term corresponded to a choice of one term from each sum.
+						</p>
+						<p>The analogue in higher dimensions is that when we make our cuts at the endpoints of our partitions, we cut with "planes", or \(d-1\) spaces (think of the plane \(z=a\) in \(\mathbb{R}^3\) for example).</p>
+						<p>So we've proved the desired result for when our subrectangles form a perfect grid subdivision of our big rectangle. What happens when they don't? In 2 dimensions, we can imagine taking each subrectangle and extending its edges to infinite lines which then subdivide the rectangle into a grid. In 3 dimensions, the analogue is extending each face to a plane that cuts the rectangle.</p>
+						<p>The general statement is that for each subrectangle \(R_i\), for each of its endpoints \(a_i\) and \(b_i\), taking the hyperplane \(x_i = a_i\) or \(x_i = b_i\) to cut \(R\), forming a grid. (word salad incoming) Because each \(R_i\)'s faces are part of the subdivisions, the grid subrectangles cannot span two of the \(R_i\). Thus it is possible to partition the grid cells into which original subrectangle they belonged to. But of course, the sum over the grid cells is the volume of \(R\), and so we can split up the sum into one over the \(R_i\). But the \(R_i\) have also been subdivided so the sum of the grid cells within them is also just their volume, giving the desired result (<em>TODO: make this last part clearer</em>)</p>
+					</span>
+				</div>
+				<p>One corollary of the above lemma is that if the subrectangles in general cover our rectangle \(R\), then we get \(|R| \leq \sum_{i=1}^n |R_i| \), as we might expect. I won't put a full formal proof here yet, but the idea is that if a subrectangle intersects with \(R\), then you can just cut it and take the intersection to get a rectangle that's smaller and fits in \(R\). Then you can apply the above Lemma.</p>
+				<p>Another important class of sets we'll consider are the open sets. For these cases, we'll make use of the following two lemmas:</p>
+				<div class="lemma-container">
+					<span class="lemma-title">
+						Lemma.
+					</span>
+					<span class="lemma-statement">
+						Every open set in \(\mathbb{R}\) is the countable union of disjoint open intervals.
+					</span>
+				</div>
+				<div class="proof-container">
+					<span class="proof-word">Proof.</span>
+					<span class="proof-text">
+						<p>Consider some open set \(\mathcal{O} \subseteq \mathbb{R}\). For each \(x \in \mathcal{O}\), let \(I_x\) be the largest open interval in \(\mathcal{O}\) that contains \(x\) (this obviously exists by openness)..</p>
+						<p>Any two intervals \(I_x\) and \(I_y\) are either equal or disjoint. Suppose they had a nonempty intersection. Then \(I_x \cup I_y\) is another open interval that contains \(x\) and so by maximality, \(I_x \cup I_y \subseteq I_x\) which implies \(I_y \subseteq I_x\).</p>
+						<p>Similarly, \(I_x \cup I_y \subseteq I_y\) which implies \(I_x \subseteq I_y\). The two together imply \(I_x = I_y\).</p>
+						<p>Then clearly, \(\mathcal{O} = \bigcup_{x \in \mathcal{O}} I_x\). Then by corresponding each interval with a rational in that interval (by density), the number of intervals can't be more than the cardinality of the rationals, so we have countability.</p>
+					</span>
+				</div>
+				<p>However, this statement is not necessarily true for higher dimensions, we have to weaken the hypotheses slightly (<em>TODO: Put a counterexample here</em>):
+				<div class="lemma-container">
+					<span class="lemma-title">
+						Lemma.
+					</span>
+					<span class="lemma-statement">
+						Every open set in \(\mathbb{R}^d\) is the countable union of <em>almost disjoint</em> open cubes
+					</span>
+				</div>
+				<div class="proof-container">
+					<span class="proof-word">Proof.</span>
+					<span class="proof-text">
+						<p>The proof is pretty intuitive, so I will give the high level overview here. I want to fill in the details at some point</p>
+						<p>Consider the grid formed by taking cubes with integer points. Any cubes outside of the open set we discard, any cubes inside of the open set we keep, and any spanning the border we subdivide it by partitioning each dimension into equal halves (so we get \(2^d\) more cubes), taking them to the next step. We keep applying this process to infinity. At step \(k\), the points have coordinates in the lattice \((1/2^k)\mathbb{Z}^d\).</p>
+						<p>Any point in the open set has an open ball around it, and thus there exists a large enough \(k\) such that there's a cube containing it in the \(k^{th}\) subdivision. This cube is entirely within the open set, and so must've been either accepted at step \(k\), or part of a larger cube that was accepted before.</p>
+						<p>Thus every point was covered, and we have a countable number of cubes (since we picked a countable number of cubes at each step).</p>
 					</span>
 				</div>
 			</section>
+			<section>
+				<h2>Sanity checks</h2>
+				Now we cover some "trivial" statements that should be true to convince ourselves that our definition of exterior measure is not totally wrong.
+				<h4>Sanity check 1: A point has zero exterior measure</h4>
+				<p>We can consider a point as a closed cube where each closed interval is a single point, and thus we get zero exterior measure. If that seems weird, you can instead take a sequence of cubes containing the point that get smaller and limit in exterior measure to 0.</p>
+				<h4>Sanity check 2: A closed cube has exterior measure equal to its volume</h4>
+				<p>Consider a closed cube \(Q\) with finite volume (i.e., it's bounded). Since it covers itself, we have that \(m^*(Q) \leq |Q|\). To show the other direction of the inequality, we want to show that \(|Q|\) is a lower bound for the total volume of any closed cube covering of \(Q\). Consider some arbitrary closed cube covering \((Q_k)\). Then consider slightly expanding each cube to a bigger open cube \(S_k\) such that \(|S_k| \leq (1+\varepsilon)|Q_k|\). By compactness of \(Q\), we can take a finite subcovering from the \(S_k\). By the corollary, we have that \(|Q| \leq \sum_{k=1}^N |S_k|\) giving us that \(|Q| \leq (1+\varepsilon)\sum_{k=1}^\infty |Q_k|\). This is true for arbitrary \(\varepsilon\) and so we get the desired result.</p>
+			</section>
+			<em>TODO: finish this</em>
 		</main>
 	</body>
 </html>
