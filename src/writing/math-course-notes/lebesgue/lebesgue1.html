@@ -4,7 +4,7 @@
 	<body>
 		$NAV
 		<header>
-			<h1>Lecture 1: Exterior measure (WIP)</h1>
+			<h1>Lecture 1: Exterior measure</h1>
 		</header>
 		<main>
 			<section>
@@ -12,12 +12,12 @@
 				<p>We wish to define a "measure" for all subsets of \(\mathbb{R}^d\). What are the simplest subsets for which we already have an intuitive notion of what their measure should be? Rectangles.</p>
 				<p>Define a rectangle as follows. Take two lists of real numbers \(a_1 \dots a_d\) and \(b_1 \dots b_d\), where \(b_i \geq a_i \forall i\). The closed rectangle for those two lists is the cartesian product of all the intervals \([a_i, b_i]\). The open rectangle is similarly \((a_1, b_1) \times \dots \times (a_d, b_d)\). A rectangle in general is any set that contains an open rectangle and is contained in a closed rectangle of the same intervals.
 				(i.e., letting the brackets take on all possible combinations of open/closed).</p>
-				<p>A rectangle in one dimension is an interval, and a rectangle in two dimensions is the standard rectangle.</p>
+				<p>A rectangle in one dimension is an interval, and a rectangle in two dimensions is the standard rectangle. Notice that we don't allow rectangles to be infinite.</p>
 				<p>For a rectangle \(Q\) that is the cartesian product of intervals with endpoints \(a_i, b_i\), we define the volume, denoted \(|Q|\) in the obvious manner: \(\prod_{i=1}^d (b_i - a_i)\)</p>
 				<p>A cube is a rectangle where all the side lengths are the same, i.e., \(b_d - a_d = \dots = b_1 - a_1\)</p>
-				<p>Then, for <em>any</em> subset \(A \subseteq \mathbb{R}^d\), define its exterior measure \(m^*(A)\) as follows:
-				\[ m^*(A) = \inf\left\{\sum_{k=0}^\infty |Q_k| : A \subseteq \bigcup_{k=0}^\infty Q_k, Q_k \, \text{closed cube} \right\} \]
-				In plain English, it's the infimum of the volume of cubes over all coverings of \(A\) by a countable number of closed cubes. Based on this definition, it is worth our time to get some basic facts about rectangle coverings out of the way first.</p>
+				<p>Then, for <em>any</em> subset \(A \subseteq \mathbb{R}^d\), define its exterior measure \(m_*(A)\) as follows:
+				\[ m_*(A) = \inf\left\{\sum_{k=0}^\infty |Q_k| : A \subseteq \bigcup_{k=0}^\infty Q_k, Q_k \, \text{closed cube} \right\} \]
+				In plain English, it's the infimum of the volume of cubes over all coverings of \(A\) by a countable number of closed cubes. To see that it always exists, consider that the cubes \([-k, k]^d\) cover all of \(\R^d\) and so will cover any subset. Based on this definition, it is worth our time to get some basic facts about rectangle coverings out of the way first.</p>
 			</section>
 			<section>
 				<h2>Coverings by Rectangles</h2>
@@ -94,14 +94,66 @@
 				</div>
 			</section>
 			<section>
-				<h2>Sanity checks</h2>
-				Now we cover some "trivial" statements that should be true to convince ourselves that our definition of exterior measure is not totally wrong.
-				<h4>Sanity check 1: A point has zero exterior measure</h4>
+				<h2>Simple facts</h2>
+				<p>Now we cover some basic facts of the theory of exterior measure.</p>
+				<h4>Fact 1: If \(A \subseteq B\) then \(m_*(A) \leq m_*(B)\) (monotonicity)</h4>
+				<p>This is simply since any covering of \(B\) is a covering of \(A\) and using simple rules of \(\inf\).</p>
+				<h4>Fact 2: \(m_*\left(\bigcup_{i=0}^\infty A_i\right) \leq \sum_{i=0}^\infty m_*(A_i) \) (countable sub-additivity)</h4>
+				<p>The idea is simply that if you take closed cube coverings of each \(A_i\), obviously putting them all together will cover the union of the \(A_i\). And then, you want to be able to say that the sum of volumes of the closed cube coverings is just the sum of the exterior measures of the \(A_i\).</p>
+				<p>But the closed cube coverings always have some error term and you want to bound the (infinite) sum of the errors. Here we use a classic trick that comes up a lot: take the error terms to be exponentially decreasing, then the sum is finite and can be taken as small as you want it to be</p>
+				<h4>Fact 3: A point has zero exterior measure</h4>
 				<p>We can consider a point as a closed cube where each closed interval is a single point, and thus we get zero exterior measure. If that seems weird, you can instead take a sequence of cubes containing the point that get smaller and limit in exterior measure to 0.</p>
-				<h4>Sanity check 2: A closed cube has exterior measure equal to its volume</h4>
-				<p>Consider a closed cube \(Q\) with finite volume (i.e., it's bounded). Since it covers itself, we have that \(m^*(Q) \leq |Q|\). To show the other direction of the inequality, we want to show that \(|Q|\) is a lower bound for the total volume of any closed cube covering of \(Q\). Consider some arbitrary closed cube covering \((Q_k)\). Then consider slightly expanding each cube to a bigger open cube \(S_k\) such that \(|S_k| \leq (1+\varepsilon)|Q_k|\). By compactness of \(Q\), we can take a finite subcovering from the \(S_k\). By the corollary, we have that \(|Q| \leq \sum_{k=1}^N |S_k|\) giving us that \(|Q| \leq (1+\varepsilon)\sum_{k=1}^\infty |Q_k|\). This is true for arbitrary \(\varepsilon\) and so we get the desired result.</p>
+				<h4>Fact 4: A closed cube has exterior measure equal to its volume</h4>
+				<p>Consider a closed cube \(Q\). Since it covers itself, we have that \(m_*(Q) \leq |Q|\). To show the other direction of the inequality, we want to show that \(|Q|\) is a lower bound for the total volume of any closed cube covering of \(Q\). Consider some arbitrary closed cube covering \((Q_k)\). Then consider slightly expanding each cube to a bigger open cube \(S_k\) such that \(|S_k| \leq (1+\varepsilon)|Q_k|\). By compactness of \(Q\), we can take a finite subcovering from the \(S_k\). By the corollary, we have that \(|Q| \leq \sum_{k=1}^N |S_k|\) giving us that \(|Q| \leq (1+\varepsilon)\sum_{k=1}^\infty |Q_k|\). This is true for arbitrary \(\varepsilon\) and so we get the desired result.</p>
+				<h4>Fact 4.5: Any cube has exterior measure equal to its volume</h4>
+				<p>Take any cube \(Q\). Obviously its closure covers it and has the same volume, so \(m_*(Q) \leq |Q|\). For the reverse inequality, take an \(\varepsilon\)-smaller closed cube \(Q'\). Clearly \(|Q'| \leq m_*(Q)\) but letting \(\varepsilon\) limit to zero we get \(|Q| \leq m_*(Q)\) (this operation is like the reverse of taking an \(\varepsilon\)-bigger open cube that we did above).</p>
+				<h4>Fact 5: Any rectangle has exterior measure equal to its volume</h4>
+				<p>If we do the same expanding + finite subcover from compactness argument from Fact 4, we get \(|R| \leq m_*(R)\) (notice that this is the opposite of the "easy" direction from the previous facts). </p>
+				<p>For the reverse direction, it suffices to find a closed cube covering with total volume \(\leq |R|\). We do this by allowing for some error and letting the error go to 0.</p>
+				<p>More precisely, subdivide space into cubes of sidelength \(1/k\). Then let \(Q\) be the set of cubes contained in \(R\), and let \(Q'\) be the set of cubes that intersect both \(R\) and the complement of \(R\). Clearly both sets are finite, and their union is a cover of \(R\). First, note that by doing a similar "extending faces" argument to before, the sum of volumes of cubes in \(Q\) is \(\leq |R|\). </p>
+				<p>Next, we can estimate the size of \(Q'\). The cubes intersecting one face of the rectangle will be "one cube thick", and will be basically a grid of cubes. The number of cubes in each dimension is \(O((b_i-a_i)k)\) where \(i\) is the dimension in question. Thus, (dropping the constant), the number of cubes on each face is \(O(k^{d-1})\). Then the number of cubes in all of \(Q'\) is still \(O(k^{d-1})\) because we're just summing over some fixed, finite number of faces.</p>
+				<p>Then since the volume of each cube is \(1/k^d\), the sum of their volumes is \(O(1/k)\). </p>
+				<p>Thus we get:
+				\begin{align}
+				\sum_{A \in Q \cup Q'} |A| &amp;= \sum_{A \in Q}|A| + \sum_{A \in Q'} |A| \\
+				&amp;\leq |R| + O(1/k) \\
+				\end{align}
+				where the error term goes to zero as \(k \to \infty\) giving us the desired inequality.
+				</p>
+				<h4>Fact 6: \(m_*(A) = \inf m_*(\fO)\) where the infimum runs over all open sets containing \(A\)</h4>
+				<p>One direction inequality is easy thanks to monotonicity. For the other direction, take a closed cube covering of \(A\) with error \(\e\). Then, expand each cube to a slighly bigger open cube, and do the trick of making the errors exponentially decreasing. Then by subadditivity the exterior measure of the union of the open cubes is at most the sum of the exterior measures, which will be \(m_*(A)\) plus some negligible error term. But the union of the open cubes is an open set containing \(A\), giving the desired result. </p>
+				<h4>Fact 7: If \(d(A_1, A_2) > 0\), \(m_*(A_1 \cup A_2) = m_*(A_1) + m_*(A_2)\)</h4>
+				<p>This statement is a special case of "additivity". In general, we might want and expect that the measure of the disjoint union of two sets is just the sum of the measures. However, this is not generally true, and we'll see this later. However, we can prove additivity right now for sets that have positive distance.</p>
+				<p>Onto the proof. We have one direction already by subadditivity. For the opposite direction, the high-level idea is as follows: take a closed cube covering \((Q_k)_{k=1}^\infty \) of \(A_1 \cup A_2\) with an error of \(\e\). Because there is a positive distance between \(A_1\) and \(A_2\), we can subdivide the cubes so that no cube spans both. Thus (after throwing out subcubes that ended up in the gap), we can partition our cover into disjoint covers \( ({Q_1}_k)_{k=1}^\infty, ({Q_2}_k)_{k=1}^\infty \) of \(A_1\) and \(A_2\), respectively. </p>
+				<p>Then, 
+				\begin{align}
+				m_*(A_1) + m_*(A_2) &amp;\leq \sum_{k=1}^\infty |{Q_1}_k| + \sum_{k=1}^\infty |{Q_2}_k| \\
+				&amp; \leq \sum_{k=1}^\infty |Q_k| \\
+				&amp; \leq m_*(A_1 \cup A_2) + \e
+				\end{align}
+				</p>
+				And we get the desired result because \(\e\) was arbitrary.
+				</p>
+				<p>Here's some details on how to subdivide the cubes. In an open ball, the largest distance between any two points is the diameter. Thus, if you make your cubes small enough to fit inside an open ball of radius \(\frac{d(A_1, A_2)}{2}\), then you know there can't be two points from different sets simultaneously in the cube, as desired.</p>
+				<h4>Fact 8: If a set \(A\) is the almost disjoint union of countably many cubes, i.e. \(A = \bigcup_{k=1}^\infty\), then \(m_*(A) = \sum_{k=1}^\infty m_*(Q_k) \)</h4>
+				<p>One direction is obvious by monotonicity. For the opposite direction, take the first \(N\) cubes, with \(N\) arbitrary. Shrink them with exponentially decaying error terms to get \((Q'_k)_{k=1}^N \). These cubes now have positive distance, so you can apply Fact 7 repeatedly:
+				\begin{align}
+				m_*(A) &amp;\geq m_*(\bigcup_{k=1}^\infty Q_k) \\
+				&amp; \geq m_*(\bigcup_{k=1}^N Q_k) \\
+				&amp; \geq m_*(\bigcup_{k=1}^N Q'_k) \\
+				&amp; \geq \sum_{k=1}^N m_*(Q_k) - \frac{\e}{2^k} \\
+				&amp; \geq -\e + \sum_{k=1}^N m_*(Q_k)
+				\end{align}
+				Thus \(\sum_{k=1}^N m_*(Q_k) \leq m_*(A) + \e\) for arbitrary \(\e\) so we can drop it. Then, this is true for arbitrary \(N\) and so true in the limit, giving the desired result.
+				</p>
+				<p>One corollary is that open sets are "nice", since they are the almost disjoint union of cubes.</p>
 			</section>
-			<em>TODO: finish this</em>
+			<section>
+				<h2>Recap</h2>
+				<p>We've introduced the definition of exterior measure and proved a bunch of basic facts about it. Thankfully, it satisfies a lot of intuitive results that we might expect/hope it to.</p>
+				<p>The important thing that is missing is real, honest additivity. To tackle this, we'll introduce a class of sets that satisfy an additional property. These will be our "measurable" sets, and will satisfy additivity. Later, when we discuss pathologies, we'll see why the extra property was necessary and counterexamples to additivity of the exterior measure.</p>
+				<p>The most important results here are the ones about coverings of open sets, monotonicity/subadditivity, and the alternative definition of exterior measure in terms of open sets (Fact 6). It was a bit of a lengthy/grindy topic, but it gets a little better (sometimes not by very much though).</p>
+			</section>
 		</main>
 	</body>
 </html>
