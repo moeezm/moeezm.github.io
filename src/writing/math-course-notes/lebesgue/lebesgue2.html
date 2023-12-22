@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Lecture 2: Measurable Sets (WIP)</h1>
+		</header>
+		<main>
+			I'm going to zoom through the rest of these because I actually have to study the content in this course and not just write my own textbook/transcribe Stein and Shakarchi lol. I'll come back and put motivation/details and clean it up.
+			<section>
+				<h2>Introduction</h2>
+				<p>To get additivity, we're going to restrict the class of sets we look at. We say that a set is measurable if it can be approximated by open sets. In other words, if for every \(\e \gt 0\), there exists \(\fO\) open such that \(A \subseteq \fO\) and \(m_*(\fO - A) \lt \e\). If a set is measurable we drop the star and the "exterior" and let its measure be \(m(A)\).</p>
+				<p>It's trivial that open sets are measurable</p>
+				<p>It's not hard to show that sets of exterior measure 0 are measurable.</p>
+				<p>Measurable sets are closed under countable union: take open set approximations to each set with exponentially decaying error term. Then the union of the open sets covers the union of the sets, and it's pretty clear that the difference is a subset of the union of each individual difference. By subadditivty, the exterior measure of the union of the indvidual differences is at most \(\e\) as desired.</p>
+				<p>Now we show closed sets are measurable. First we show for bounded. Let \(F\) be a compact set. Pick some open set where the difference in measures is less than \(\e\). Take the difference \(\fO - F\) and write it as almost disjoint union of countably many cubes, since it's open. Consider finite partial unions. They are compact and so have positive distance from \(F\) (will prove this below). Then by monotonicity, \(m_*(K \cup F) \leq m_*(\fO)\). We can split up thanks to positive distance and bringing \(m_*(F)\) to the other side we get \(m_*(K) \lt \e\). Thus \(\sum_{k=1}^N m_*(Q_k) \lt \e\) which is true for arbitrary \(N\) and thus in the limit. Then by subadditivity \(m_*(\fO - F) \lt \e\). </p>
+				<p>For the weird topological lemma, we'll prove the following: if \(F\) is closed and \(K\) is compact, then \(d(F, K) \gt 0\).(<em>TODO: PROVE THIS</em>)</p> 
+				<p>Complement of measurable set is measurable: Let \(A\) be a measurable set. Take \(\fO_n\) be an open set approximation with error \(1/n\). Then the complements are closed and hence measurable. Notice that \(A^c - \fO_n^c = \fO_n - A\) by DeMorgan's stuff and so \(A^c - \bigcup_{n=1}^\infty \fO_n^c \subseteq \fO_n - A\) for all \(n\) and so the exterior measure must be zero. But the union is measurable, and the difference has exterior measure zero and so is also measurable and \(A^c\) is the union of the two and so measurable.</p>
+				<p>Here's a little remark: we can now easily approximate measurable sets from the inside by closed sets, same way we approximate from the outside by open sets. Take some measurable set \(A\). Then take an open set \(\fO\) such that \(m_*(\fO - A^c) \lt \e\). But by drawing it out (or DeMorgan's) that is again simply \(m_*(A - \fO^c\).</p>
+				<p>Also countable intersections are measurable thanks to DeMorgan's and already proved results for union and complement</p>
+			</section>
+			<section>
+				<h2>Sigma Algebras</h2>
+				<p>This doesn't come up that much this course, but it is a useful language. Take some universal set \(U\). Then, a sigma algebra on \(U\) is a collection \(\Sigma\) of subsets that satisfies the following properties:
+					<ol>
+						<li>\(U \in \Sigma\)</li>
+						<li>\(\emptyset \in \Sigma\)</li>
+						<li>Closed under countable unions</li>
+						<li>Closed under countable intersections</li>
+						<li>Closed under complement</li>
+					</ol>
+				(Obviously the list is a bit redundant).</p>
+				<div class="lemma-container">
+					<span class="lemma-title">Lemma.</span>
+					<span class="lemma-statement">The collection of measurable sets \(X\) is a sigma algebra on \(\R^d\)</span>
+				</div>
+				<div class="proof-container">
+					<span class="proof-word">Proof.</span>
+					<p>We've already proved the closure properties, and it suffices to note either that \(\emptyset\) has exterior measure zero (since it's the subset of every cube, take the cubes arbitrarily small), or that it is open/closed or that \(\R\) is open/closed, etc. etc.</p>
+				</div>
+				<p>One particular sigma algebra of note is the <em>Borel algebra</em>. This is the algebra that is "generated" by the open sets. Hopefully that language is intuitive, but you can imagine taking every possible sequence of intersections/unions/complements over the open sets and including them all in your set</p>
+				<p>However, formalizing that generating language by talking about sequences of operations seems difficult (<em>TODO: investigate this further</em>. Instead, we take the Borel algebra to be the smallest sigma algebra containing all the open sets. This precludes the inclusion of any "extraneous" sets that can't be "generated" by the open sets. To make the definition of smallest precise, take it to be the intersection of all sigma algebras that contain the Borel sets.</p>
+				<p>Obviously the Borel algebra is included in our algebra of measurable sets. We'll see later that they are not equal</p>
+				<p>There are two types of sets in our Borel algebra that are a bit unfamiliar to us from topology. They are, and I can never remember the names well, \(F_\sigma\) sets, which are countable unions of closed sets, and \(G_\delta\) sets, which are countable intersections of open sets. Using \(F\) for the closed one is a bit intuitive, since the whole course/textbook has been using \(F\) for closed sets. But IDK how to differentiate \(\sigma\) and \(\delta\). Our teacher told us the names come from German or something</p>
+
+			</section>
+		</main>
+	</body>
+</html>
