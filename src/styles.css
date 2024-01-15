@@ -14,6 +14,7 @@ body {
 	color: #000033;
 	font-family: "Segoe UI", Helvetica, Tahoma, sans-serif;
 	background-color: #fafafa;
+	font-size: max(1em, 1vw);
 }
 
 @media screen and (max-width: 768px) {
