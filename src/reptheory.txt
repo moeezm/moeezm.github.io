@@ -1,0 +1,22 @@
+REPRESENTATION THEORY REVIEW:
+a representation is representing a group as matrices over some complex vector space
+when subspace is fixed by every element you can restrict to it and get a subrep
+no subreps is called irreducible
+can decompose any representation into direct sum of irreducible representations
+
+some shit about only linear maps that commute with G being scalar multiples of identity (schur's lemma) idk
+
+character of representation: function from G -> C given by trace of g
+is a "class function" (i.e., constant on conjugacy classes) since trace is invariant under conjugation
+define inner product on vector space of class functions by standard complex dot product (remember conjugate on second term!) and then dividing by |G| to normalize to 1
+under this inner products, the irreducible characters form an orthonormal basis
+
+character table: write all values of all the irreducible characters lol. square cause # of conjugacy classes = # of irreducible characters by above
+
+column orthogonality: take the inner product of the column vectors of character table. if g and h are not conjugate (i.e. different columns) then 0. if they're conjugate then you get size of centralizer of g or h (same thing)
+
+common representations:
+trivial representation: one dimensional vector space, map everything to identity
+permutation representation: if you have some group action, make basis vectors your set elements, and elements of g permutation matrices
+regular representation: special case of above where the action is of G on itself
+degree 1 representations: automorphisms of F is just F* and every element of g has finite order so you just get roots of unity
