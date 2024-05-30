@@ -1,0 +1,43 @@
+fall times
+japanese: everyday, either 0930-1030 or 1230-1330
+urdu-hindi: mwf, 1030-1130
+pdes: tue/thurs 1300-1430 (grad) or 0830-1000 (undergrad)
+comp690: mon/wed 0830-1000
+mining: mon 1130-1430 / wed 1430-1730 (orebody modelling) or tue 1430-1730 / thurs 0830-1130 (mine planning)
+research project: anytime
+
+winter times
+japanese: everyday, either 0930-1030 or 1230-1330
+urdu-hindi: mwf, 1030-1130
+stats: tue/thurs, 0830-1000
+diff geo: tue/thurs, 1000-1130 (grad) or 1300-1430 (undergrad)
+advanced materials: tue/thurs, 1130-1300
+proof complexity: tue/thurs, 1300-1430
+
+====
+
+fall schedule (without comp690):
+japanese: everyday, 0930-1030
+urdu-hindi: mwf, 1030-1130
+grad pdes: tue/thurs, 1300-1430 (skip)
+orebody modelling: mon 1130-1430 / wed 1430-1730
+research project
+17.5 credits
+
+fall schedule (with comp690):
+japanese: everyday, 1230-1330
+urdu-hindi: mwf, 1030-1130
+grad pdes: tue/thurs 1300-1430 (skip)
+comp690: mon/wed 0830-1000
+mine planning: tue 1430-1730 / thurs 0830-1130
+research project
+21.5 credits
+
+winter schedule:
+japanese: everyday, 0930-1030
+urdu-hindi: mwf, 1030-1130
+stats: tue/thurs, 0830-1000 (skip)
+geotopo2: tue/thurs, 1000-1130 (skip)
+chem334: tue/thurs, 1130-1300
+proof complexity: tue/thurs, 1300-1430
+21.5 credits
