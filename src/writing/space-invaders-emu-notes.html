@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Notes on making a Space Invaders emulator</h1>
+		</header>
+		<main>
+			<p><a href="www.emulator101.com">emulator101.com</a> is a good starting resource. I didn't really want 
+			to keep reading once I got to the "Cocoa Platform" section b/c I thought it was going to just be GUI library 
+			specific stuff. Once I got into actually coding, the User's Manual and the Programming Manual for the Intel 
+			8080 as well as the Wikipedia article were very good references and covered the details I needed to know. For 
+			a quick reference on the hardware stuff he talks about, just use the Computer Archaeology website he links.</p>
+			<p><strong>The Auxiliary Carry flag and the DAA instruction</strong>: I'm pretty sure emulator101.com 
+			talks about ignoring this, but the game actually uses this for displaying the score. To be completely honest, 
+			I don't fully understand how the AC flag works for subtraction operations, so I left it because the game only 
+			needs it for additions. Thankfully it's straightforward for addition operations.
+			The DAA instruction affects the AC and the regular carry flag in a bit of a strange way, 
+			and you can read that in the Programming Manual. It also turns out, if you read the manual, that the AND 
+			operation with registers/memory (so not immediate value) affects the AC flag. I got from <a href="https://retrocomputing.stackexchange.com/questions/14977/auxiliary-carry-and-the-intel-8080s-logical-instructions">this stackexchange 
+				answer</a> that it sets it to the OR of the 3rd bits (counting from least significant, starting from 0).</p>
+			<p>It's also a good idea to be careful about the rotate (left shift or right shift) instructions, I messed them
+			up the first time.</p>
+			<p>If you're having issues with your CPU emulator, it might be a good idea to test it (I had to do this). You
+			can find other people's 8080 emulators on github, clone them, and try to run some of the test programs they
+			use. You can step through both your and their emulator until there's a difference in the state.</p>
+			<p><strong>Interrupts</strong>: Not 100% sure about this one (it might be in the manuals somewhere) but I think
+			it's a good idea to disable interrupts once an interrupt is received. The game has code anyways in its routine
+			it runs at interrupt to reenable them at some point. The point of disabling interrupts is I believe I was
+			running into a stack overflow where the game would start stacking up interrupts as it got interrupted before
+			finishing its current interrupt routine.</p>
+			<p><strong>Timing</strong>: I went into this project kind of clueless, and if you're like me, you might expect
+			that it's not that hard to get your CPU emulator to run at exactly the clock speed you choose. However, timing
+			is more finicky on computers than I imagined, and this is probably not possible. The other thing is that <strong>don't use threads</strong>. These are more cursed than I imagined. The important thing to realize is you only need to
+			run the instructions that needed to run before each frame gets displayed, so those are the significant
+			"deadlines" the CPU needs to show up for, and it doesn't have to be accurately timed in between.</p>
+			<p>The hack I ended up going with is I would run like a 1000 instructions after the half interrupt, and then
+			run the number of cycles the CPU would do in 1/60th of a second after the full interrupt. Works ¯\_(ツ)_/¯</p>
+			<p>Also, your first idea for timing a loop on a specific schedule would be to use some sort of sleep function,
+			but I became very convinced that usleep is incredibly unreliable. You can read a little bit underneath this
+			<a href="https://x.com/AlterranIRL/status/1811688847094288762">tweet</a> about timing and different tools like
+			nanosleep. Just try different things and see what works.</p>
+		</main>
+	</body>
+</html>
