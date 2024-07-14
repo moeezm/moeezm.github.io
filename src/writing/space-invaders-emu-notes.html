@@ -6,6 +6,7 @@
 		$NAV
 		<header>
 			<h1>Notes on making a Space Invaders emulator</h1>
+			<time datetime="2024-07-13">July 13, 2024</time>
 		</header>
 		<main>
 			<p><a href="www.emulator101.com">emulator101.com</a> is a good starting resource. I didn't really want 
@@ -15,7 +16,7 @@
 			a quick reference on the hardware stuff he talks about, just use the Computer Archaeology website he links.</p>
 			<p><strong>The Auxiliary Carry flag and the DAA instruction</strong>: I'm pretty sure emulator101.com 
 			talks about ignoring this, but the game actually uses this for displaying the score. To be completely honest, 
-			I don't fully understand how the AC flag works for subtraction operations, so I left it because the game only 
+			the way subtraction sets the AC flag seems really cursed, so I left it because the game only 
 			needs it for additions. Thankfully it's straightforward for addition operations.
 			The DAA instruction affects the AC and the regular carry flag in a bit of a strange way, 
 			and you can read that in the Programming Manual. It also turns out, if you read the manual, that the AND 
@@ -36,7 +37,7 @@
 			is more finicky on computers than I imagined, and this is probably not possible. The other thing is that <strong>don't use threads</strong>. These are more cursed than I imagined. The important thing to realize is you only need to
 			run the instructions that needed to run before each frame gets displayed, so those are the significant
 			"deadlines" the CPU needs to show up for, and it doesn't have to be accurately timed in between.</p>
-			<p>The hack I ended up going with is I would run like a 1000 instructions after the half interrupt, and then
+			<p>The hack I ended up going with is I would run like 1000 instructions after the half interrupt, and then
 			run the number of cycles the CPU would do in 1/60th of a second after the full interrupt. Works ¯\_(ツ)_/¯</p>
 			<p>Also, your first idea for timing a loop on a specific schedule would be to use some sort of sleep function,
 			but I became very convinced that usleep is incredibly unreliable. You can read a little bit underneath this
