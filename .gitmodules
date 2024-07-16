@@ -1,0 +1,3 @@
+[submodule "src/spaceinvadersemulator-wasm"]
+	path = src/spaceinvadersemulator-wasm
+	url = git@github.com:moeezm/spaceinvadersemulator-wasm.git
