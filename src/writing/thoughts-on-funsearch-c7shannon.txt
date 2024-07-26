@@ -149,3 +149,6 @@ Final thoughts:
   without it.
 
 Finally, the independent set my modified function found can be found at ./indset367.txt
+===
+
+Addendum (2024-07-25): I experimented with taking some large subset of the independent set found and then extending it with integer linear programming, still not set over 367
