@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Mobius Inversion</h1>
+		</header>
+		<main>
+			<section>
+				<h2>Summary</h2>
+				<ul>
+					<li>Define \(\mu(n)\) as the multiplicative function with
+						\(\mu(1) = 1\), \(\mu(p) = -1\), \(\mu(p^k) = 0\) for \(k \geq 2\)</li>
+					<li>\( \left( \sum_{n = 1}^\infty \frac{\mu(n)}{n^s} \right)
+							\left( \sum_{n = 1}^\infty \frac{1}{n^s} \right) = 1 \), or,
+							\( \sum_{d \mid n} \mu(d) = [n=1] \) (i.e., \(1\) if \(n = 1\) and \(0\) otherwise)
+					</li>
+					<li>Given \(b_n = \sum_{d \mid n} a_d\) for \(n \geq 1\),
+						\(a_n = \sum_{d \mid n}\mu(n/d)b_d\)</li>
+					<li>Both \(\mu(n)\) and \(a_n\) can be computed for all \(n \leq N\)
+						with DP/sieve in \(O(N\log N)\)</li>
+				</ul>
+			</section>
+			<section>
+			<h2>Derivation</h2>
+			<p>
+			Mobius inversion is the following result: consider two sequences \(a_n\) and \(b_n\) defined for
+			\(n \geq 1\). Suppose that \(b_n = \sum_{d \mid n} a_d\). We wish to "invert" this formula and find
+			a formula that expresses \(a_n\) in terms of the \(b_n\).
+			</p>
+
+			<p>
+			We will reframe this problem in terms of Dirichlet series. Consider some arbitrary sequence \(x_n\) defined
+			for \(n \geq 1\). Then we can associate to \(x_n\) its Dirichlet series, 
+			\(X(s) = \sum_{n = 1}^{\infty} \frac{x_n}{n^s}\).
+			It is easy to see that multiplying two Dirichlet series \(X(s)\) and \(Y(s)\) (with associated sequences
+			\(x_n\) and \(y_n\) gives the Dirichlet series for a sequence \(z_n\) given by
+			\(z_n = \sum_{ij = n} x_iy_j\).
+			</p>
+
+			<p>
+			Consider the sequence of all 1s. Let its associated Dirichlet series be 
+			\(E(s) = \sum_{n=1}^\infty \frac{1}{n^s}\).
+			Then we can see that \(b_n = \sum_{d \mid n} a_d\) is equivalent to saying that \(B(s) = A(s)E(s)\).
+			Thus, if we can find a Dirichlet series \(M(s)\) such that \(M(s)E(s) = 1\), then multiplying by \(M(s)\)
+			on both sides would give us \(A(s) = B(s)M(s)\), allowing us to express \(a_n\) in terms of the \(b\)'s.
+			</p>
+
+			<p>
+			Let \(m_n\) be the associated sequence to \(M(s)\). The expression \(M(s)E(s) = 1\) is equivalent to saying
+			that \(m_1 = 1\) and for all \(n \geq 2\), \(\sum_{d \mid n} m_d = 0\). Thus, it's easy to see that
+			\(m_p = -1\) for \(p\) prime. Now consider \(n = p^k\), a power of a prime. Because we need
+			\(m_1 + m_p + m_{p^2} = 0\), we have that \(m_{p^2} = 0\) and the same is true for all higher powers
+			by induction.
+			</p>
+
+			<p>
+			We will show that \(m_n\) is a multiplicative sequence, that is, for \(a, b\) coprime, \(m_{ab} = m_a m_b\).
+			We will do this by induction on \(n = ab\). The base case \(n = 1\) is trivially true.
+			For the inductive step, if \(a\) or \(b\) are \(1\) then it is trivially true. So consider \(a, b \geq 2\).
+			Therefore, \(a, b \lt n\). Now, because each of the three sums are zero, we have:
+			
+			\[
+			\left( \sum_{d \mid a} m_d \right) \left( \sum_{d \mid b} m_d \right) = \sum_{d \mid n} m_d
+			\]
+
+			Expanding the LHS and inspecting you can see that because \(a\) and \(b\) are coprime, and thus every divisor
+			of \(n\) is a product of a divisor of \(a\) and a divisor of \(b\), almost everything cancels (applying the
+			induction hypothesis) and you're left with \(m_am_b = m_{n}\) as desired.
+			</p>
+
+			<p>
+			We now know that \(m_n\) is a multiplicative sequence, and we know its values on prime powers. Thus
+			it's easy to see that \(m_1 = 1\), \(m_n = (-1)^k\) if \(n\) is the product of \(k\) different primes,
+			and \(m_n = 0\) if \(n\) has any prime power at least 2 (in other words, is divisible by a square).
+			</p>
+
+			<p>
+			This sequence \(m_n\) is normally called the Mobius function, denoted by \(\mu(n)\).
+			</p>
+			</section>
+
+			<section>
+			<h2>Computing</h2>
+
+			<p>
+			Let's turn to practical computational considerations. Suppose we wish to compute \(a_n\) for all \(n\) up to
+			some limit \(N\). We can do this in \(O(N\log N)\), in fact without use of the Mobius function.
+			First, notice that \(a_n = b_n - \sum_{d \mid n, d \neq n} a_d\). So very naively, you could do this in
+			\(O(N\sqrt{N})\). But notice that the sum on the right is the perfect type of thing to compute quickly with
+			a sieve. To do this, initialize all \(a_i\) with \(b_i\). Then, loop over, and once you get to \(a_i\),
+			subtract it from \(a_{2i}\), \(a_{3i}\), etc.
+			</p>
+
+			<p>
+			We can also compute the Mobius function easily: do a standard prime sieve. On iteration \(p\) for \(p\)
+			prime multiply \(a_{kp}\) by \(-1\) for \(k\) not divisible by \(p\) and multiply by \(0\) otherwise.
+			</p>
+		</main>
+	</body>
+</html>
