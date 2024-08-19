@@ -36,7 +36,7 @@
 			for \(n \geq 1\). Then we can associate to \(x_n\) its Dirichlet series, 
 			\(X(s) = \sum_{n = 1}^{\infty} \frac{x_n}{n^s}\).
 			It is easy to see that multiplying two Dirichlet series \(X(s)\) and \(Y(s)\) (with associated sequences
-			\(x_n\) and \(y_n\) gives the Dirichlet series for a sequence \(z_n\) given by
+			\(x_n\) and \(y_n\)) gives the Dirichlet series for a sequence \(z_n\) given by
 			\(z_n = \sum_{ij = n} x_iy_j\).
 			</p>
 
@@ -60,7 +60,7 @@
 			We will show that \(m_n\) is a multiplicative sequence, that is, for \(a, b\) coprime, \(m_{ab} = m_a m_b\).
 			We will do this by induction on \(n = ab\). The base case \(n = 1\) is trivially true.
 			For the inductive step, if \(a\) or \(b\) are \(1\) then it is trivially true. So consider \(a, b \geq 2\).
-			Therefore, \(a, b \lt n\). Now, because each of the three sums are zero, we have:
+			Therefore, \(a, b \lt n\). Now, because each of the following three sums are zero, we have:
 			
 			\[
 			\left( \sum_{d \mid a} m_d \right) \left( \sum_{d \mid b} m_d \right) = \sum_{d \mid n} m_d
@@ -72,9 +72,10 @@
 			</p>
 
 			<p>
-			We now know that \(m_n\) is a multiplicative sequence, and we know its values on prime powers. Thus
-			it's easy to see that \(m_1 = 1\), \(m_n = (-1)^k\) if \(n\) is the product of \(k\) different primes,
-			and \(m_n = 0\) if \(n\) has any prime power at least 2 (in other words, is divisible by a square).
+			We now know that \(m_n\) is a multiplicative sequence, and we know its values on prime powers. Thus,
+			applying the multiplicative rule, it's easy to see that \(m_1 = 1\), \(m_n = (-1)^k\) if \(n\) is 
+			the product of \(k\) different primes, and \(m_n = 0\) if \(n\) has any prime power at least 2 
+			(in other words, is divisible by a square).
 			</p>
 
 			<p>
