@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>Expected Value of Geometric Distribution with a Betting Argument</h1>
+			<h6>Inspired by <a href="https://www.youtube.com/watch?v=OjcacSB6_EE">this youtube video</a></h6>
+			<time datetime="2024-08-18">August 18, 2024</time>
+		</header>
+		<main>
+			<section>
+				<p>Suppose you're given a coin that has a probability \(p\) of turning
+				up heads and a probability \(1-p\) of turning up tails. What's the
+				expected number of flips before you see a heads? The intuitive answer
+				is \(1/p\). For example, in a fair coin, it would take \(2\) flips on
+				average before you see a heads. Or in a fair die, it would take \(6\)
+				rolls on average before you see a \(6\).</p>
+
+				<p>The geometric probability distribution models the above scenario, and
+				it's not too hard to see that the probability of it taking \(k\) flips
+				is \((1-p)^{k-1}p\). Then, the expected value is a well-known infinite
+				series that comes out to \(1/p\).</p>
+
+				<p>I would like to present a way of deriving this result by considering
+				a betting game. The general set up of the game is that you put up \$\(1\)
+				on a single flip. If the flip comes up heads, you win \$\(k\). 
+				Otherwise, you don't win anything.</p>
+
+				<p>What should \(k\) be for the expected profit of the game to be \(0\)?
+				This is simple: with probability \(p\) we make a profit of \$\(k - 1\)
+				, and with probability \(1-p\) we make a profit of \$\(-1\). So, the expected
+				profit is: \(p(k-1) + (1-p)(-1)\) which gives \(k = 1/p\). </p>
+
+				<p>Now, fixing our payout at \(1/p\), let's consider the simple extension
+				of the game to multiple flips. Each flip we bet \$\(1\) that it will be
+				heads, and we stop playing as soon as we win.
+				Since the expected profit on each flip is \(0\), the expected
+				profit over all the flips is still \(0\). Thus, we can write that
+				\(\mathbb{E}[payout] = \mathbb{E}[stake]\). But the payout is just \(1/p\),
+				since we win exactly one time, and the expected amount staked is just the
+				number of flips we bet on.
+				</p>
+
+				<p>But in other words, the number of flips we bet on is the number of flips
+				it took to see a heads, so the expected number of flips before we see a
+				heads is \(1/p\).
+				</p>
+
+				<p>I recommend watching the video linked above, since it shows how you can
+				extend arguments like this to find the expected number of flips before you
+				see a heads and then a tails (\(HT\)), a \(HH\), or any arbitrary finite
+				sequence of heads and tails.</p>
+			</section>
+			<hr>
+			<p>(maybe I'll move these appendices somewhere else but they kind of fit here. also
+			as of the writing of this, I'm trying to make the top level articles somewhat
+			noteworthy, at least to me, in the sense that it's not just regurgitating and is
+			actually the product of thought. these appendices are regurgitations.)</p>
+			<section>
+				<h2>Appendix A: The series calculation</h2>
+				<p>Let's do the "well-known infinite series" I mentioned before. So again,
+				if \(X\) is geometrically distributed, then \(\mathbb{P}[X=k] = (1-p)^{k-1}p\).
+				Thus, the expected value is:
+				\[
+				\sum_{k=1}^\infty k (1-p)^{k-1}p
+				\]
+				If we didn't have the factor of \(k\), this would be a very simple geometric
+				series. But we can do a bit of work to transform it into one. First, let's factor
+				out the \(p\) and forget about it for now. Then, let's consider the general problem
+				by replacing \(1-p\) with \(x\). Thus, we want to compute:
+				\[
+				\sum_{k=1}^\infty k x^{k-1}
+				\]
+				Then we can integrate this series term by term to get \(\sum_{k=1}^\infty x^k\),
+				which is just a geometric series evaluating to \(\frac{x}{1-x}\).
+				Thus, we can just differentiate that expression with the quotient rule to get
+				\(\frac{(1-x) - (-x)}{(1-x)^2} = \frac{1}{(1-x)^2}\).
+				</p>
+
+				<p>This expression is equal to the infinite series we wanted, so we plug in
+				\(1-p\) to get \(\frac{1}{p^2}\). But then we can't forget about the \(p\)
+				we factored out at the beginning, so the final answer is \(1/p\).
+				</p>
+			</section>
+			<section>
+				<h2>Appendix B: Betting argument for expected number of flips before \(HT\)</h2>
+				<h6>(taken from the video linked above)</h6>
+				<p>
+				Let's simplify the game by considering a fair coin. So the payout is \$\(2\).
+				Let's also consider multiple people betting. So, person \(i\) joins the table
+				and starts betting from flip \(i\), trying their hand at winning by betting on
+				seeing a heads and then a tails (\(HT\)). On the first flip a person plays for,
+				he bets that the coin will turn up heads. If it doesn't, he loses his money
+				and leaves the table. If it does, he wins \$\(2\) and parlays that into betting
+				that the next flip is a tails. If it hits tails he wins the total payout of \$\(4\)
+				and the game ends for everyone. Otherwise, he loses everything and leaves.
+				</p>
+
+				<p>Let's look at the total profit over everyone. Since the payout on each flip
+				is \$\(2\), the total expected profit must be 0. And once again, the total amount
+				staked is just the number of flips, since each flip brings a new person with
+				a new \$\(1\) to bet with. The total payout is just \$\(4\), since the person
+				who joined at the second to last flip wins the total \$\(4\), and everyone else
+				lost.
+				</p>
+
+				<p>Thus, the expected number of flips before a \(HT\) is equal to the expected
+				payout, which is \(4\).</p>
+
+				<p>What if we were trying to bet on \(HH\) instead? Then the second to last
+				person wins \(4\) again, but the last person also wins \(2\) since he correctly
+				predicted a heads. Thus the expected number of flips before \(HH\) is \(6\).
+				</p>
+
+				<p>In general, you have to look at the suffixes of your sequence that are also
+				a prefix of the sequence to calculate the winnings and so the expected number
+				of flips.</p>
+			</section>
+			<section>
+				<h2>Appendix C: Two alternative proofs to Appendix B (\(HT\))</h2>
+				<p>Let's forget about betting.</p>
+
+				<p>The first solution: Let the expected value be \(x\). If we flip a tails
+				first, then the expected number of flips will be \(1 + x\), since we
+				wasted the first flip on a tails and then we "reset" the game and started
+				playing again (since the next flips don't depend on the previous flips).
+				If we flip a heads first, then we just wait the expected number of flips
+				until we see a tails, since the sequence will look like \(H...HT\).
+				Thus, we have that \(x = \frac{1}{2}(1 + x) + \frac{1}{2}(1 + 2)\) which
+				gives \(x = 4\).</p>
+
+				<p>The second solution is a bit simpler: Wait until an \(H\), then wait until a \(T\).
+				Thus the sequence will look like \(T..TH...HT\) in general, so the expected
+				number of flips is just \(2 + 2 = 4\).</p>
+
+				<p>The first solution works better for the case of \(HH\).</p>
+			</section>
+			<section>
+				<h2>Appendix D: The cereal box toy collecting problem</h2>
+				<p>Also called the coupon collector problem or other such names. This is a
+				simple application of the expected value of the geometric distribution</p>
+
+				<p>The problem is as follows: There are \(n\) different types of toys that
+				might come with a cereal box. Each box has exactly one toy, chosen from the
+				\(n\) with equal probability. What is the expected number of boxes you need
+				to buy before having at least one of each type of toy?</p>
+
+				<p>Let's view it like this: At some point in your collecting journey you've
+				already collected \(i\) types of toys. From then on, we can model it with a
+				geometric distribution: there is a \(\frac{n-i}{n}\) chance you get a new toy,
+				and a \(\frac{i}{n}\) chance you get a toy you already have.
+				Thus, the expected number of boxes you need to buy before you get a new toy
+				is just \(\frac{n}{n-i}\).</p>
+
+				<p>Then, at the beginning of your collecting journey, you have \(0\) toys.
+				Thus you buy \(\frac{n}{n} = 1\) boxes to get a new one. Now you have \(1\)
+				toy. So you buy \(\frac{n}{n-1}\) boxes to get a new one. And then \(\frac{n}{n-2}\)
+				boxes, and so on. Until you have \(n-1\) toys, and then you buy \(\frac{n}{1} = n\)
+				boxes to complete your collection.</p>
+
+				<p>So the expected number of boxes you need to buy is:
+				\[
+				\sum_{i = 0}^{n-1} \frac{n}{n-i}
+				\]
+				We can just index in reverse to get:
+				\[
+				\sum_{i = 1}^{n} \frac{n}{i}
+				\]
+				So it's just \(nH_n\) where \(H_n = 1/1 + 1/2 + ... + 1/n\) is the \(n^{th}\)
+				harmonic number. Thus asymptotically it's \(n\log n\).
+				</p>
+			</section>
+		</main>
+	</body>
+</html>
