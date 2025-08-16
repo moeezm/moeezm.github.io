@@ -8,6 +8,12 @@
 		</header>
 		<main>
 			<p>My bachelor's thesis was on Erdos's conjecture that any triangle-free graph can be made bipartite by removing at most \(n^2/25\) edges.</p>
+			<p>Here's a cute related application of the probabilistic method:</p>
+			<h4>Claim: Any graph \(G\) with \(E\) edges can be made bipartite by removing at most \(E/2\) edges</h4>
+			<p>Proof: Take a uniformly random \(2\)-coloring of \(G\). Then, remove the edges between nodes of the
+			same color, making the graph bipartite. There's a \(1/2\) chance of an edge being removed. Thus the expected
+			number of edges removed is \(E/2\). Thus there must exist some way to remove at most \(E/2\) edges to make
+			it bipartite.</p>
 		</main>
 	</body>
 </html>

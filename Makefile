@@ -1,4 +1,4 @@
-PYTHON=python
+PYTHON=python3
 SCRIPT=build_template.py
 
 all: build serve
