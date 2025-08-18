@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>The Kernel Lemma</h1>
+			<time datetime="2025-08-17">Aug 17, 2025</time>
+		</header>
+		<main>
+			<p>This is a linear algebra tool that's apparently only taught in France, and has some useful consequences.
+			The statement:</p>
+			<p><em>Kernel Lemma</em>. Let \(V\) be a vector space over a field \(K\). Let \(T : V \to V\) be a linear transformation. Let \(P(x)\) and
+			\(Q(x)\) be two coprime polynomials over \(K\). Then
+			\[
+				\text{ker}\left(PQ(T)\right) = \text{ker}\left(P(T)\right) \oplus \text{ker}\left(Q(T)\right)
+			\]</p>
+			<p>
+			<em>Proof</em>. First we show RHS \(\subseteq\) LHS. Consider \(u + v\) for \(u \in \text{ker}\left(P(T)\right)\) and \(v \in \text{ker}\left(Q(T)\right)\).
+			Then \(PQ(T)(u + v) = Q(T)P(T)(u) + P(T)Q(T)(v) = 0 + 0 = 0\). Now for the reverse direction, consider \(v \in \text{ker}\left(PQ(T)\right)\). Apply
+			Bezout's lemma to get \(AP + BQ = 1\) for two polynomials \(A\) and \(B\). Then \(AP(T)(v) + BQ(T)(v) = v\). Notice that \(QAP(T)(v) = APQ(T)(v) = 0\) and similarly
+			\(PBQ(T)(v) = BPQ(T)(v) = 0\) so \(AP(T)(v) \in \ker\left(Q(T)\right)\) and \(BQ(T)(v) \in \ker\left(P(T)\right)\) so we have our desired decomposition.</p>
+			
+			<p>Can easily extend to arbitrarily large products with induction.</p>
+
+			<p>A useful corollary: If polynomial \(P(x)\) has root \(T\) and splits into distinct linear factors then \(T\) is diagonalizable.</p>
+			<p><em>Proof</em>. Suppose \(P(x) = (x-a_1)\dots(x-a_k)\). Since \(P(T) = 0\), \(\text{ker}\left(P(T)\right) = V\). By the lemma this decomposes
+			into the direct sum of the kernels of each factor. Each \(\text{ker}(T - a_i)\) is exactly the eigenspace of value \(a_i\).</p>
+		</main>
+	</body>
+</html>
