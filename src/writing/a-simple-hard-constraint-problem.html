@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	$HEAD
+	<body>
+		$NAV
+		<header>
+			<h1>A simple constraint satisfaction problem that's seemingly hard for solvers</h1>
+            <em><h4>Or, <a href="https://buttondown.com/hillelwayne/archive/many-hard-leetcode-problems-are-easy-constraint/">some
+                easy Leetcode problems are hard constraint problems
+            </a></h4></em>
+            <time datetime="2026-02-03">February 3, 2026</time>
+		</header>
+		<main>
+            <section>
+                <p>Imagine you have some number of workers, and some number of tasks that need to be completed.
+                Each task needs some number of workers, and for each task, only certain workers can do it. 
+                A worker can do multiple tasks. Suppose that there are enough suitable workers for each task.
+                You want to find a suitable assignment from workers to tasks.
+                In a real world setting, there might be other considerations, like scheduling when to do the tasks,
+                and making sure that agents assignments don't overlap. But let's say we don't have those, and we have
+                just this simple set of constraints.<p>
+
+                <p>Formally, we can consider the problem to be as follows. We have W workers and T tasks. We have an array A
+                where A[i] is the number of workers required to do task i. We have a relation R on W and T which is the valid (worker, task)
+                pairs. We're guaranteed that for each task i the number of (w, i) pairs in R is >= A[i]. We want to find a sub-relation R' of R such
+                that for each task i the number of (w, i) pairs in R' is == A[i]. R' is our assignment.</p>
+
+                <p>If you think about it, this has an almost trivial algorithm to solve it: do each task i independently and just assign it
+                any A[i] workers that can do it.</p>
+
+                <p>How do constraint solvers fare? Here's a possible formulation of this problem in MiniZinc:</p>
+
+                <pre>
+                    <code>
+int : workers;
+int : tasks;
+array[1..tasks] of 1..workers : workers_needed;
+array[1..tasks] of set of 1..workers : workers_allowed;
+
+constraint forall(j in 1..tasks) (
+    card(workers_allowed[j]) >= workers_needed[j]
+);
+
+array[1..tasks] of var set of 1..workers : workers_assigned;
+constraint forall(j in 1..tasks) (
+workers_assigned[j] subset workers_allowed[j] /\
+    card(workers_assigned[j]) = workers_needed[j]
+);
+solve satisfy;
+                    </code>
+                </pre>
+
+                <p>
+                    We can generate random test cases given W and T. For W = 1000 and T = 1000, the simple algorithm (in Python) takes ~0.035s. Google OR-Tools CP-SAT solver
+                    (through MiniZinc) takes ~40s. For W = 10 and T = 100000 (a maybe more realistic ratio keeping WT fixed), the simple algorithm takes ~0.08s and 
+                    OR-Tools takes ~35s. So OR-Tools can be up to 1000x slower and the scaling seems superlinear so will lose by more and more as you increase the size of the input. 
+                </p>
+
+                <p>
+                    What about a different formulation? Is it possible to find a formulation of the problem in MiniZinc that is somehow better for the solver? I'm not sure,
+                    but it is possible to find a much worse formulation. One might try expressing the relation as two arrays of the same size:
+                </p>
+
+                <pre>
+                    <code>
+int : workers;
+int : tasks;
+int : r_size;
+array[1..tasks] of 1..workers : workers_needed;
+array[1..r_size] of 1..workers : r_workers;
+array[1..r_size] of 1..tasks : r_tasks;
+
+constraint forall(i in 1..tasks) (
+  card({k | k in 1..r_size where r_tasks[k] = i}) >= workers_needed[i]
+);
+
+array[1..r_size] of var bool : assignment;
+constraint forall(i in 1..tasks) (
+  card({k | k in 1..r_size where assignment[k] /\ r_tasks[k] = i}) = workers_needed[i]
+);
+
+solve satisfy;
+                    </code>
+                </pre>
+
+                <p>
+                    If the input is in this format, a simple algorithm takes about ~0.055s on both (W = 10, T = 100000) and (W = 1000, T = 1000). OR-Tools doesn't finish for either
+                    in 10 minutes and I didn't bother seeing when it would finish. 
+                </p>
+                
+                <p>The lesson from this is some combination of "different models of a problem can be vastly easier/harder for a solver to solve" and "sometimes a human can use
+                    their knowledge to beat a generic constraint solver".
+                </p>
+            </section>
+        </main>
+    </body>
+</html>
