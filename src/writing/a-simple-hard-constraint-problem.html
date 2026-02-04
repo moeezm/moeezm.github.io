@@ -43,7 +43,7 @@ constraint forall(j in 1..tasks) (
 
 array[1..tasks] of var set of 1..workers : workers_assigned;
 constraint forall(j in 1..tasks) (
-workers_assigned[j] subset workers_allowed[j] /\
+    workers_assigned[j] subset workers_allowed[j] /\
     card(workers_assigned[j]) = workers_needed[j]
 );
 solve satisfy;
